@@ -1,3 +1,4 @@
+
     var c = document.createElement("div")
     c.id = "main"
     c.style = `
@@ -212,7 +213,7 @@
             );
         };
         return {
-            mat: k, col: col,
+            fill() { fill(this.mat) }, mat: k, col: col,
             set angle(a) {
                 angle += a
                 this.mat = srad()
@@ -235,7 +236,7 @@
                 oy += dy
                 this.mat = srad()
             }, get ori() {
-                return { x: x, y: y }
+                return { x: x, y: y, angle: angle }
             }, get top() {
                 return y
             }
@@ -244,7 +245,7 @@
 
     var arc = (x, y, r, a = 360, s = 0) => {
         return {
-            mat: () => {
+            fill() { fill(this.mat) }, mat: () => {
                 ctx.beginPath();
                 //ctx.moveTo(x * 10, y * 10)
                 ctx.arc(x * 10, y * 10, r * 10,
@@ -372,21 +373,89 @@
 
 
     var bTime = Date.now()
-    setInterval(() => {
-        var dt = (Date.now() - bTime) * 60 / 1000
-        bTime = Date.now()
-        setStyle(rgb(255, 255, 255), rgb(255, 255, 255))
-        fill([[0, 0], [160, 0], [160, 100], [0, 100]])
+    var startLoop = () => {
+        setInterval(() => {
+            var dt = (Date.now() - bTime) * 60 / 1000
+            bTime = Date.now()
+            setStyle(rgb(255, 255, 255), rgb(255, 255, 255))
+            fill([[0, 0], [160, 0], [160, 100], [0, 100]])
 
-        update(dt, {
-            x: mouse.x,
-            y: mouse.y,
-            clicking: mouse.clicking,
-            clend: mouse.clend,
-            click: mouse.click
-        })
-    }, 0)
+            update(dt, {
+                x: mouse.x,
+                y: mouse.y,
+                clicking: mouse.clicking,
+                clend: mouse.clend,
+                click: mouse.click
+            })
+        }, 0)
+    }
 
-//Please make function
-// update(dt,mouse)
+    var textBox = (x, y, w, h, t, tFSize = 10, tColor1 = rgb(0, 0, 0,), tColor2 = rgba(0, 0, 0, 0),) => {
+        var b = box(x, y, w, h)
+        return {
+            box: b,
+            mat: () => {
+                fill(b.mat)
+                setStyle(tColor1, tColor2)
+                text(x, y + tFSize, t, tFSize, w)
+                setStyle(rgba(0, 0, 0, 0))
+            },
+            fill: () => {
+                b.fill()
+                setStyle(tColor1, tColor2)
+                text(x, y + tFSize, t, tFSize, w)
+            }, col: b.col,
+        }
+    }
 
+    var ok = console.log
+
+    async function loadImg(src) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve(img);
+            img.onerror = (err) => reject(new Error(`画像の読み込みに失敗しました: ${src}`));
+            img.src = src;
+        });
+    }
+
+    function drawImage(img, x, y, w, h, angle = 0, flipH = false, flipV = false) {
+        if(img==undefined){
+            box(x,y,w,h,angle,).fill()
+        }
+        else{
+            x = x * 10; y = y * 10; w = w * 10; h = h * 10
+            ctx.save(); // 現在の描画状態（座標系など）を保存
+
+            // 1. 画像の中心位置へ原点 (0,0) を移動
+            ctx.translate(x + w / 2, y + h / 2);
+
+            // 2. 回転（度数法 deg を 弧度法 rad に変換）
+            if (angle !== 0) {
+                ctx.rotate((angle * Math.PI) / 180);
+            }
+
+            // 3. 反転 (-1をかけることで各軸を反転)
+            const scaleX = flipH ? -1 : 1;
+            const scaleY = flipV ? -1 : 1;
+            if (flipH || flipV) {
+                ctx.scale(scaleX, scaleY);
+            }
+
+            // 4. 中心を原点に合わせた状態で描画（左上は -w/2, -h/2 になる）
+            ctx.drawImage(img, -w / 2, -h / 2, w, h); 222222222222222222222222222222222222222222222222222222222222222222222
+
+            ctx.restore(); // 描画状態を元に戻す
+        }
+    }
+    var imgBox = (img, x, y, w, h, angle, flH, flV) => {
+        var r = box(x, y, w, h, angle)
+        r.fill = () => {
+            drawImage(img, r.ori.x, r.ori.y, w, h, r.ori.angle, flH, flV)
+        }
+        r.CflipH = (a = null) => { if (a == null) { flH = !flH } else { flH = a } }
+        r.CflipV = (a = null) => { if (a == null) { flV = !flV } else { flV = a } }
+        return r
+    }
+    var i;
+    //make update(dt,mouse);use startLoop()
