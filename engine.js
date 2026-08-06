@@ -394,17 +394,15 @@
         var b = box(x, y, w, h)
         return {
             box: b,
-            mat: () => {
-                fill(b.mat)
-                setStyle(tColor1, tColor2)
-                text(x, y + tFSize, t, tFSize, w)
-                setStyle(rgba(0, 0, 0, 0))
-            },
-            fill: () => {
+            fill(){
                 b.fill()
                 setStyle(tColor1, tColor2)
-                text(x, y + tFSize, t, tFSize, w)
-            }, col: b.col,
+                text(box.ori.x, box.ori.y + tFSize, this.text, tFSize, w)
+            }, col: b.col,text:t,fontChange(size=undefined,co1=undefined,co2=undefined){
+                if(size!=undefined)tFSize=size;
+                if(co1!=undefined)tColor1=co1
+                if(co2!=undefined)tColor2=co2
+            }
         }
     }
 
