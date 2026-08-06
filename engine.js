@@ -397,7 +397,7 @@
             fill(){
                 b.fill()
                 setStyle(tColor1, tColor2)
-                text(box.ori.x, box.ori.y + tFSize, this.text, tFSize, w)
+                text(b.ori.x, b.ori.y + tFSize, this.text, tFSize, w)
             }, col: b.col,text:t,fontChange(size=undefined,co1=undefined,co2=undefined){
                 if(size!=undefined)tFSize=size;
                 if(co1!=undefined)tColor1=co1
