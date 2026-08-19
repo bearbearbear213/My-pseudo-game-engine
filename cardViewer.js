@@ -31,7 +31,7 @@
       var maxH = 20
       setStyle(rgb(0, 0, 0), rgb(255, 255, 255))
       if (((objs[2].col(mouse.x, mouse.y) || obj.col(mouse.x, mouse.y) || f) && !fl) && obj.anoX == 0 && (!((index - d < 0) || (index - d >= 6)) || true)) {
-        if (obj.iY < 10) obj.iY++; else obj.iY = 10
+        if (obj.iY < 10) obj.iY+=dt*3; else obj.iY = 10
         obj.move = [0, -maxH * (obj.iY / 10)]
         obj.fill()
         this.deck.slice(index + 1).forEach((e) => e[0].iX += 40 * (obj.iY / 10))
@@ -51,7 +51,7 @@
         obj.sel = 0
         obj.abAngle = -5
         if (obj.iY > 0) {
-          obj.iY--;
+          obj.iY-=dt*3;
           deck.slice(index).forEach((e) => e[0].iX += 40 * (obj.iY / 10))
         } else obj.iY = 0
         obj.move = [0, -maxH * (obj.iY / 10)]
