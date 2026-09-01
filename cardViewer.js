@@ -21,6 +21,14 @@
         this.viewing = true
       }
     }
+    this.addCard=(n)=>{
+        n[0].iY = 0
+        n[0].iX = 0
+        n[0].anoX = 160
+        n[0].sel = 0
+        n[2] = box(-10, 0, 0, 0)
+      this.deck.push(n)
+    }
     this.viewing = false
     this.drawCard = (index, len, objs, mouse, fl, dt) => {
       var obj = objs[0]
