@@ -5,7 +5,7 @@
     return [imgBox(data.img ? data.img : null, 0, 0, 30, 50), data.ex ? data.ex : "this is\nSampleCard", box(-10, 0, 0, 0), null, data]
   }
   var cardCopy = (base) => {
-    return cardBase(base[4])
+    return cardBase({...base[4]})
   }
   function cardView(deck = []) {
     this.deck = deck
@@ -86,7 +86,7 @@
       }
       if ((!fl) && (this.deck.length > 6)) {
         setStyle(rgba(50, 50, 50, 0.5))
-        if ((6 < this.deck.length) && (((d + 1) * 6 < this.deck.length))) {
+        if ((6 < this.deck.length) && (((d/6 + 1) * 6 < this.deck.length))) {
           setStyle(rgb(0, 0, 0))
           if (but.col(mouse.x, mouse.y)) {
             setStyle(rgb(50, 50, 50))
