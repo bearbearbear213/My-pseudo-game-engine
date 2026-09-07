@@ -15,6 +15,14 @@
     var range = (n) => [...Array(n).keys()];
     var view = document.getElementById("main")
 
+    var viewerLate=10
+    var roughView=(n=10)=>{
+        viewerLate=n
+        var c=document.getElementById("canvas")
+        c.width=160*n
+        c.height=100*n
+    }
+
     var random = (min, max) => min + Math.floor(Math.random() * max);
 
 
@@ -90,7 +98,7 @@
             q()
         } else {
             var p = [...q]
-            p = p.map(e => e.map(k => k * 10))
+            p = p.map(e => e.map(k => k * viewerLate))
             ctx.beginPath();
             ctx.moveTo(...p.shift());
             for (var n of p) {
@@ -102,15 +110,15 @@
     }
     var text = (x, y, text, si = 10, w = null) => {
         // フォントサイズの設定（si * 10）
-        const fontSize = si * 10;
+        const fontSize = si * viewerLate;
         ctx.font = fontSize + "px serif";
 
         // 基準となる座標の計算
-        const startX = x * 10;
-        let currentY = y * 10;
+        const startX = x * viewerLate;
+        let currentY = y * viewerLate;
 
         // 最大幅（ピクセル単位）。指定がなければ無限大にする
-        const maxWidth = w ? w * 10 : Infinity;
+        const maxWidth = w ? w * viewerLate : Infinity;
 
         // 1. まず「\n」で文字列を分割して1行ずつ処理する
         const paragraphs = text.split('\n');
@@ -161,7 +169,7 @@
     var setStyle = (fi = "rgba(0,0,0,0)", st = "rgba(0,0,0,0)", lineW = 1) => {
         ctx.fillStyle = fi
         ctx.strokeStyle = st
-        ctx.lineWidth = lineW * 10
+        ctx.lineWidth = lineW * viewerLate
     }
     var rgb = (a, b, c) => `rgb(${a},${b},${c})`
     var rgba = (a, b, c, d) => `rgba(${a},${b},${c},${d})`
@@ -248,7 +256,7 @@
             fill() { fill(this.mat) }, mat: () => {
                 ctx.beginPath();
                 //ctx.moveTo(x * 10, y * 10)
-                ctx.arc(x * 10, y * 10, r * 10,
+                ctx.arc(x * viewerLate, y * viewerLate, r * viewerLate,
                     s * Math.PI * 2 / 360,
                     s * Math.PI * 2 / 360 + a * Math.PI * 2 / 360);
             }, col: (px, py) => {
@@ -422,7 +430,7 @@
             box(x,y,w,h,angle,).fill()
         }
         else{
-            x = x * 10; y = y * 10; w = w * 10; h = h * 10
+            x = x * viewerLate; y = y * viewerLate; w = w * viewerLate; h = h * viewerLate
             ctx.save(); // 現在の描画状態（座標系など）を保存
 
             // 1. 画像の中心位置へ原点 (0,0) を移動
@@ -441,7 +449,7 @@
             }
 
             // 4. 中心を原点に合わせた状態で描画（左上は -w/2, -h/2 になる）
-            ctx.drawImage(img, -w / 2, -h / 2, w, h); 222222222222222222222222222222222222222222222222222222222222222222222
+            ctx.drawImage(img, -w / 2, -h / 2, w, h); 
 
             ctx.restore(); // 描画状態を元に戻す
         }
