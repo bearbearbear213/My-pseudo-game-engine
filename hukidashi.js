@@ -6,6 +6,7 @@
       text: null, teTable: "", waitTime: waitTime, talking: false,
       texts: [],
       tlCh: [],
+      action:[],
       update(dt, mouse) {
         this.talking = this.text != null
         if (((this.text == null) || (mouse.click && (this.text == this.teTable))) && this.texts.length > 0) {
@@ -15,6 +16,8 @@
           fl = 0
           var n = this.tlCh.shift()
           this.chBox.text = n == "" ? " " : n
+          n=this.action.shift()
+          n(dt,mouse)
         } else if (this.text != this.teTable && mouse.click && this.talking) {
           this.tIn = 0//this.teTable.length
           this.text = this.teTable
@@ -37,10 +40,11 @@
           setStyle(rgba(0, 0, 0, 0.5), rgb(255, 255, 255))
           this.chBox.fill()
         }
-      }, setEvent(v = [{ ch: "A", te: "hello" }, { ch: "B", te: "...\nhello" }]) {
+      }, setEvent(v = [{ ch: "A", te: "hello" ,act:(dt,mouse)=>ok('text')}, { ch: "B", te: "...\nhello" }]) {
         for (var n of v) {
           this.texts.push(n.te)
           this.tlCh.push(n.ch)
+          this.action.push(act?act:()=>{})
         }
       }
     }
