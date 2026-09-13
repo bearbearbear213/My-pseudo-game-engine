@@ -44,7 +44,7 @@
         for (var n of v) {
           this.texts.push(n.te)
           this.tlCh.push(n.ch)
-          this.action.push(act?act:()=>{})
+          this.action.push(n.act?n.act:()=>{})
         }
       }
     }
