@@ -46,6 +46,7 @@
           this.tlCh.push(n.ch)
           this.action.push(n.act?n.act:()=>{})
         }
+        if(v.length>0)this.talking=true
       }
     }
   }
