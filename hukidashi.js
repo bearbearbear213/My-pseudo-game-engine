@@ -40,6 +40,7 @@
           setStyle(rgba(0, 0, 0, 0.5), rgb(255, 255, 255))
           this.chBox.fill()
         }
+        this.talking = this.text != null
       }, setEvent(v = [{ ch: "A", te: "hello" ,act:(dt,mouse)=>ok('text')}, { ch: "B", te: "...\nhello" }]) {
         for (var n of v) {
           this.texts.push(n.te)
