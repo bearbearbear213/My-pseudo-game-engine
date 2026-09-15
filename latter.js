@@ -11,12 +11,12 @@
         ...ano
       })
     }
-    this.update=(dt)=>{
+    this.update=(dt,mouse)=>{
       this.task.forEach((n)=>n.time-=dt)
       for(var n of this.task.filter((n)=>(n.time<=0)&&(!n.finished))){
         if(n.once)n.finished=true
         else n.time=n.deftimer+n.time
-        n.do(dt,n)
+        n.do(dt,n,mouse)
       }
     }
       return this
