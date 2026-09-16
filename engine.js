@@ -255,7 +255,7 @@
         return {
             fill() { fill(this.mat) }, mat: () => {
                 ctx.beginPath();
-                ctx.moveTo(x * viewerLate, y * viewerLate)
+                if(a%360!=0)ctx.moveTo(x * viewerLate, y * viewerLate)
                 ctx.arc(x * viewerLate, y * viewerLate, r * viewerLate,
                     s * Math.PI * 2 / 360,
                     s * Math.PI * 2 / 360 + a * Math.PI * 2 / 360);
