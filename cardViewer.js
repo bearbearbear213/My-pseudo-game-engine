@@ -30,6 +30,7 @@
       this.deck.push(n)
     }
     this.viewing = false
+    this.cardUp=false
     this.drawCard = (index, len, objs, mouse, fl, dt) => {
       var obj = objs[0]
       if (Math.abs(obj.anoX) > 5) obj.anoX += -obj.anoX * dt * 2 / 5; else obj.anoX = 0
@@ -125,6 +126,7 @@
           but3.fill()
         }
       }
+      this.cardUp=fl
     }
     return this
   }
