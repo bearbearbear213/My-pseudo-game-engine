@@ -464,4 +464,19 @@
         return r
     }
     var i;
+    var wait = async (c = (dt, self) => true) => {
+        await new Promise(resolve => lat.set((dt, self, mouse) => {
+            if (c(dt, self, mouse)) {
+                resolve()
+                self.finished = true
+            }
+        }, 0, false))
+    }
+    var dummyMouse = () => ({
+        x: 0,
+        y: 0,
+        clicking: false,
+        clend: false,
+        click: false
+    })
     //make update(dt,mouse);use startLoop()
