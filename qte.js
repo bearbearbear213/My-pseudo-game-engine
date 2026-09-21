@@ -1,7 +1,9 @@
 
     var qetNum=0
     var finQet=0
+var qteF=false
     var qte=async(fl=60,after=()=>{},x=80,y=50,r=7,e=10)=>{
+        qteF=false
       var o=qetNum
       qetNum++
         var l=1
@@ -16,9 +18,10 @@
             arc(x,y,(3-2*l/fl)*r/3,360,360*l/fl).fill()
             setStyle("white")
             arc(x,y,r/3).fill()
-            return mouse .click&&o==finQet
+            return (mouse .click&&o==finQet)||qteF
         })
       finQet++
       res=flag?fl:fl-l
-      after(Math.abs(res))
+      if(!qteF)after(Math.abs(res))
     }
+    var qteEnd=()=>{qteF=true}
