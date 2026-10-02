@@ -431,7 +431,7 @@ view.addEventListener('pointerdown', (event) => {
                 clicking: mouse.clicking,
                 clend: mouse.clend,
                 click: mouse.click,
-                dblck:mouse.dblcl
+                dblcl:mouse.dblcl
             })
         }, 0)
     }
