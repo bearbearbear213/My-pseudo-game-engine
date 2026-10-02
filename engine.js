@@ -25,36 +25,54 @@
 
     var random = (min, max) => min + Math.floor(Math.random() * max);
 
+ mouse = {
+    x: 0, y: 0, iclick: false, clicking: false, clendi: false, 
+    get clend() {
+        var n = this.clendi;
+        this.clendi = false;
+        return n;
+    }, 
+    id: null, 
+    get click() {
+        var n = this.iclick;
+        this.iclick = false;
+        return n;
+    },
+    menu: false, 
+    dblclF: false,
+    get dblcl() {
+        var n = this.dblclF;
+        this.dblclF = false;
+        return n;
+    }
+};
 
-
-    var mouse = {
-        x: 0, y: 0, iclick: false, clicking: false, clendi: false, get clend() {
-            var n = this.clendi
-            this.clendi = false
-            return n
-        }, id: null, get click() {
-            var n = this.iclick
-            this.iclick = false
-            return n
-        },menu:false,   dblclF:false,
-        get dblcl(){var n=this.dblclF;this.dblclF=false;return n} }
+// 1. コンテキストメニュー（右クリック）の制御
 view.addEventListener('contextmenu', (e) => {
-  e.preventDefault(); 
-  mouse.menu=true
-  //動きません
-});
-view.addEventListener('click', () => {
-  mouse.menu=false
+    e.preventDefault(); 
+    mouse.menu = true;
 });
 
-  var dblt=0
+// 左クリック時にコンテキストメニュー状態を解除
+view.addEventListener('click', (e) => {
+    if (e.button === 0) { // 左クリックの場合のみ解除
+        mouse.menu = false;
+    }
+});
+
+// 2. ダブルクリックの判定 logic (左クリックのみを対象)
+var dblt = 0;
 view.addEventListener('pointerdown', (event) => {
-  var t=new Date().getTime();
-  if(t-dblt<300){
-    mouse.dblclF=true
-  }else{
-    dblt=t
-  }
+    // 主ボタン（通常は左クリック）以外は無視
+    if (event.button !== 0) return;
+
+    var t = new Date().getTime();
+    if (t - dblt < 300) {
+        mouse.dblclF = true;
+        dblt = 0; // 判定成功後にタイマーをリセット
+    } else {
+        dblt = t; // 次のクリック用にタイムスタンプを保存
+    }
 });
     view.addEventListener("pointerdown", (e) => {
         if (mouse.id != null) return
