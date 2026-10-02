@@ -26,6 +26,7 @@
     var random = (min, max) => min + Math.floor(Math.random() * max);
 
 
+
     var mouse = {
         x: 0, y: 0, iclick: false, clicking: false, clendi: false, get clend() {
             var n = this.clendi
@@ -35,8 +36,26 @@
             var n = this.iclick
             this.iclick = false
             return n
-        }
-    }
+        },menu:false,   dblclF:false,
+        get dblcl(){var n=this.dblclF;this.dblclF=false;return n} }
+view.addEventListener('contextmenu', (e) => {
+  e.preventDefault(); 
+  mouse.menu=true
+  //動きません
+});
+view.addEventListener('click', () => {
+  mouse.menu=false
+});
+
+  var dblt=0
+view.addEventListener('pointerdown', (event) => {
+  var t=new Date().getTime();
+  if(t-dblt<300){
+    mouse.dblclF=true
+  }else{
+    dblt=t
+  }
+});
     view.addEventListener("pointerdown", (e) => {
         if (mouse.id != null) return
         mouse.id = e.pointerId
@@ -393,7 +412,8 @@
                 y: mouse.y,
                 clicking: mouse.clicking,
                 clend: mouse.clend,
-                click: mouse.click
+                click: mouse.click,
+                dblck:mouse.dblcl
             })
         }, 0)
     }
