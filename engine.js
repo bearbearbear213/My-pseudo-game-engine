@@ -425,7 +425,7 @@ view.addEventListener('pointerdown', (event) => {
             setStyle(rgb(255, 255, 255), rgb(255, 255, 255))
             fill([[0, 0], [160, 0], [160, 100], [0, 100]])
 
-            var mouse={
+            var mouse2={
                 x: mouse.x,
                 y: mouse.y,
                 clicking: mouse.clicking,
@@ -435,13 +435,13 @@ view.addEventListener('pointerdown', (event) => {
                 menu:mouse.menu
             }
         var n = key.get()[" "]
-        mouse.clicking =n||mouse.clicking
+        mouse2.clicking =n||mouse2.clicking
         if (bSp&&!n) {
-            mouse.clend=true
+            mouse2.clend=true
         }else if(n&&!bSp){
-            mouse.click=true
+            mouse2.click=true
         }
-            update(dt, mouse)
+            update(dt, mouse2)
         }, 0)
     }
 
