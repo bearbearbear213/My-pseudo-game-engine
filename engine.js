@@ -425,15 +425,23 @@ view.addEventListener('pointerdown', (event) => {
             setStyle(rgb(255, 255, 255), rgb(255, 255, 255))
             fill([[0, 0], [160, 0], [160, 100], [0, 100]])
 
-            update(dt, {
+            var mouse={
                 x: mouse.x,
                 y: mouse.y,
                 clicking: mouse.clicking,
                 clend: mouse.clend,
                 click: mouse.click,
                 dblcl:mouse.dblcl,
-                mune:mouse.mune
-            })
+                menu:mouse.menu
+            }
+        var n = key.get()[" "]
+        mouse.clicking =n||mouse.clicking
+        if (bSp&&!n) {
+            mouse.clend=true
+        }else if(n&&!bSp){
+            mouse.click=true
+        }
+            update(dt, mouse)
         }, 0)
     }
 
@@ -518,4 +526,45 @@ view.addEventListener('pointerdown', (event) => {
         clend: false,
         click: false
     })
+    class Keyboard {
+        constructor() {
+            this.keyboard = {};
+            this.keycodes = {};
+            var n;
+            for (n of `qazwsxedcrfvtgbyhnujmikolp `.split("")) {
+                this.keycodes[`${n}`] = n;
+            }
+            for (n of `Up/Down/Left/Right`.split("/")) {
+                this.keycodes[`Arrow${n}`] = n;
+            }
+            for (n of `Enter/Backspace`.split("/")) {
+                this.keycodes[`${n}`] = n;
+            }
+            for (n of Object.values(this.keycodes)) {
+                this.keyboard[n] = false;
+            }
+            document.addEventListener("keydown", (e) => {
+                if (Object.keys(this.keycodes).includes(e.key)) {
+                    this.keyboard[
+                        Object.keys(this.keyboard)[
+                        Object.keys(this.keycodes).indexOf(e.key)
+                        ]
+                    ] = true;
+                }
+            });
+            document.addEventListener("keyup", (e) => {
+                if (Object.keys(this.keycodes).includes(e.key)) {
+                    this.keyboard[
+                        Object.keys(this.keyboard)[
+                        Object.keys(this.keycodes).indexOf(e.key)
+                        ]
+                    ] = false;
+                }
+            });
+        }
+        get() {
+            return this.keyboard;
+        }
+    }
+    var key = new Keyboard()
     //make update(dt,mouse);use startLoop()
