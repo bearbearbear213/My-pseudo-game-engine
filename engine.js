@@ -434,13 +434,6 @@ view.addEventListener('pointerdown', (event) => {
                 dblcl:mouse.dblcl,
                 menu:mouse.menu
             }
-        var n = key.get()[" "]
-        mouse2.clicking =n||mouse2.clicking
-        if (bSp&&!n) {
-            mouse2.clend=true
-        }else if(n&&!bSp){
-            mouse2.click=true
-        }
             update(dt, mouse2)
         }, 0)
     }
