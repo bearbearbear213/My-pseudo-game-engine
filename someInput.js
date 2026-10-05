@@ -33,7 +33,7 @@
             "atk": (self) => { self.cMove = false; wins.push(new windowLike({ ok: async () => { wins = []; hu.setEvent([{ ch: "", te: "てきをこうげきした。" }]); await wait(() => !hu.talking); wins.push(new windowLike()); }, cancel: (self2) => { self2.del(); self.cMove = true } }, "てきをこうげきする。\n", "", "atk")) },
             "act": (self) => { ok(1) },
         },
-            beforeT = "", text = "\n", title = "selAct") {
+            beforeT = "", text = "\n", title = "selAct",moreView=(self)=>{}) {
             winIndexs++
             this.index = winIndexs
             this.scroll = 0
@@ -53,6 +53,7 @@
             this.title = title
             this.moving = false
             this.cMove = true
+            this.moreView=moreView
         }
         update(dt, mouse) {
             var top = box(this.x, this.y, this.w, 3)
@@ -103,6 +104,7 @@
                 }
                 setStyle(rgb(0, 0, 0))
                 leftText(this.x, this.y, this.title, 3)
+                this.moreView(this)
             } else {
                 var main = box(this.x, this.y + 3, this.w, this.h - 3)
                 setStyle("white", rgb(0, 0, 0), 0.1)
@@ -115,6 +117,7 @@
                 leftText(this.x, this.y + 3, this.beforeT + this.res.join("\n") + this.text, 5, this.w)
                 setStyle(rgb(0, 0, 0))
                 leftText(this.x, this.y, this.title, 3)
+                this.moreView(this)
                 setStyle(rgba(100, 100, 100, 0.1))
                 box(this.x, this.y, this.w, this.h).fill()
             }
