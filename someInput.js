@@ -109,7 +109,7 @@
 var pa = new Path2D();
 pa.rect(...[self.x, self.y+3, self.w, self.h-3].map(n=>n*viewerLate));
           ctx.clip(pa)
-                this.moreView(this)
+                this.moreView(this,dt,mouse)
                 ctx.restore()
             } else {
                 var main = box(this.x, this.y + 3, this.w, this.h - 3)
@@ -128,7 +128,7 @@ pa.rect(...[self.x, self.y+3, self.w, self.h-3].map(n=>n*viewerLate));
 var pa = new Path2D();
 pa.rect(...[self.x, self.y+3, self.w, self.h-3].map(n=>n*viewerLate));
           ctx.clip(pa)
-                this.moreView(this)
+                this.moreView(this,dt,mouse)
                 ctx.restore()
                 setStyle(rgba(100, 100, 100, 0.1))
                 box(this.x, this.y, this.w, this.h).fill()
