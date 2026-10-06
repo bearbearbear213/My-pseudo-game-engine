@@ -104,7 +104,13 @@
                 }
                 setStyle(rgb(0, 0, 0))
                 leftText(this.x, this.y, this.title, 3)
+                var self=this
+          ctx.save()
+var pa = new Path2D();
+pa.rect(...[self.x, self.y+3, self.w, self.h-3].map(n=>n*viewerLate));
+          ctx.clip(pa)
                 this.moreView(this)
+                ctx.restore()
             } else {
                 var main = box(this.x, this.y + 3, this.w, this.h - 3)
                 setStyle("white", rgb(0, 0, 0), 0.1)
@@ -117,7 +123,13 @@
                 leftText(this.x, this.y + 3, this.beforeT + this.res.join("\n") + this.text, 5, this.w)
                 setStyle(rgb(0, 0, 0))
                 leftText(this.x, this.y, this.title, 3)
+                var self=this
+          ctx.save()
+var pa = new Path2D();
+pa.rect(...[self.x, self.y+3, self.w, self.h-3].map(n=>n*viewerLate));
+          ctx.clip(pa)
                 this.moreView(this)
+                ctx.restore()
                 setStyle(rgba(100, 100, 100, 0.1))
                 box(this.x, this.y, this.w, this.h).fill()
             }
