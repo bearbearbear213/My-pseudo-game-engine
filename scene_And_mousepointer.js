@@ -76,6 +76,6 @@
             this.updateFunc(this, dt, mouse)
         }
     }
-    var gameObjectsUpdate = () => {
-        for (var n of gameObjects) n.update()
+    var gameObjectsUpdate = (dt,mouse) => {
+        for (var n of gameObjects) n.update(dt,mouse)
     }
