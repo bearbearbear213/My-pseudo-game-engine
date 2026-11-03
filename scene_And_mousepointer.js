@@ -58,7 +58,7 @@
         constructor(strart = (self) => { }, update = (self, dt, mouse) => { }, scene = "sample", condition = "live", type = "short", id = "") {
             this.startFunc = strart
             this.updateFunc = update
-            self.scene = scene
+            this.scene = scene
             this.condition = condition
             this.type = type
 
